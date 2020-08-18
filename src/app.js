@@ -9,7 +9,7 @@ app.use(cors());
 
 const repositories = [];
 
-function logRequests(request, response, next) {
+/* function logRequests(request, response, next) {
     const { method, url } = request;
 
     const logLabel = `[${method.toUpperCase()}] ${url}`;
@@ -32,7 +32,7 @@ function validateProjectId(request, response, next){
 
 app.use(logRequests);
 
-app.use('/repositories/:id', validateProjectId);
+app.use('/repositories/:id', validateProjectId); */
 
 app.get('/repositories', (request, response) => {
     const { title } = request.query;
