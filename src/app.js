@@ -56,11 +56,23 @@ app.post('/repositories', (request, response) => {
 });
 app.post('/repositories/:id/like', (request, response) => {
 
-    const { title, url, techs, likes} = request.body;
+    const { id } = request.params;
 
-    const repositorie = {id: uuid(), title, url, techs, likes};
-    repositorie.likes = repositorie.likes + 1;
-    repositories.push(repositorie);
+    const projectIndex = repositories.findIndex(repositorie => repositorie.id === id);
+
+    if(projectIndex < 0){
+        return response.status(400).json({error: 'repositorie not found'});
+    }
+
+    const likes = repositories[projectIndex].likes + 1;
+
+    const repositorie = {
+        ...repositories[projectIndex],
+        likes,
+    };
+    
+    repositories[projectIndex] = repositorie;
+    
     return response.json(repositorie);
 
 });
