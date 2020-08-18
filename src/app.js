@@ -48,17 +48,17 @@ app.post('/repositories', (request, response) => {
     const { title, url, techs} = request.body;
     const likes = 0;
 
-    const repositorie = {id: uuid(), title, url, techs, likes };
-    repositories.push(repositorie);
+    const repository = {id: uuid(), title, url, techs, likes };
+    repositories.push(repository);
 
-    return response.json(repositorie);
+    return response.json(repository);
 
 });
 app.post('/repositories/:id/like', (request, response) => {
 
     const { id } = request.params;
 
-    const projectIndex = repositories.findIndex(repositorie => repositorie.id === id);
+    const projectIndex = repositories.findIndex(repository => repository.id === id);
 
     if(projectIndex < 0){
         return response.status(400).json({error: 'repositorie not found'});
@@ -66,14 +66,14 @@ app.post('/repositories/:id/like', (request, response) => {
 
     const likes = repositories[projectIndex].likes + 1;
 
-    const repositorie = {
+    const repository = {
         ...repositories[projectIndex],
         likes,
     };
 
-    repositories[projectIndex] = repositorie;
+    repositories[projectIndex] = repository;
     
-    return response.json(repositorie);
+    return response.json(repository);
 
 });
 app.put('/repositories/:id', (request, response) => {
@@ -81,25 +81,25 @@ app.put('/repositories/:id', (request, response) => {
     const { id } = request.params;
     const { title, url, techs} = request.body;
 
-    const projectIndex = repositories.findIndex(repositorie => repositorie.id === id);
+    const projectIndex = repositories.findIndex(repository => repository.id === id);
 
     if(projectIndex < 0){
         return response.status(400).json({error: 'repositorie not found'});
     }
 
-    const repositorie = {
+    const repository = {
         id,
         title,
         url,
         techs,
     };
-    repositories[projectIndex] = repositorie;
+    repositories[projectIndex] = repository;
     
-    return response.json(repositorie);
+    return response.json(repository);
 });
 app.delete('/repositories/:id', (request, response) => {
     const { id } = request.params;
-    const projectIndex = repositories.findIndex(repositorie => repositorie.id === id);
+    const projectIndex = repositories.findIndex(repository => repository.id === id);
 
     if(projectIndex < 0){
         return response.status(400).json({error: 'Project not found'});
