@@ -112,4 +112,6 @@ app.listen(3333, () =>{
     console.log('❤🚀Backend Started!');
 });
 
+module.exports = app;
+
 
