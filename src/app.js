@@ -35,12 +35,7 @@ app.use(logRequests);
 app.use('/repositories/:id', validateProjectId); */
 
 app.get('/repositories', (request, response) => {
-    const { title } = request.query;
-
-    const results = title
-    ? repositories.filter(project => project.title.includes(title))
-    : repositories;
-    return response.json(results);
+    return response.json(repositories);
 
 });
 app.post('/repositories', (request, response) => {
@@ -64,14 +59,7 @@ app.post('/repositories/:id/like', (request, response) => {
         return response.status(400).json({error: 'repositorie not found'});
     }
 
-    const likes = repositories[projectIndex].likes + 1;
-
-    const repository = {
-        ...repositories[projectIndex],
-        likes,
-    };
-
-    repositories[projectIndex] = repository;
+    repositories.likes += 1;
     
     return response.json(repository);
 
@@ -92,6 +80,7 @@ app.put('/repositories/:id', (request, response) => {
         title,
         url,
         techs,
+        likes: 0
     };
     repositories[projectIndex] = repository;
     
